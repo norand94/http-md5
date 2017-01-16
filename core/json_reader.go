@@ -11,16 +11,16 @@ type Message struct {
 	Text string `validate:"required,max=100"`
 }
 
-func ReadJSON(data string) Message  {
+func ReadJSON(data string) (Message, error)  {
 	dec := json.NewDecoder(strings.NewReader(data))
 
 	var m Message
 	err := dec.Decode(&m)
 	if err != nil {
-		panic(err)
+		return Message{}, err
 	}
 
-	return m
+	return m, nil
 
 }
 

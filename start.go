@@ -13,14 +13,21 @@ func connect(w http.ResponseWriter, r *http.Request){
 		}
 	}()
 
+	fmt.Println(r)
+	fmt.Println(r.PostFormValue("request"))
 	request := r.PostFormValue("request")
 	if request == "" {
 		http.Error(w, "Empty Request", http.StatusBadRequest)
 		return
 	}
-	message := core.ReadJSON(request)
 
-	err := core.ValidateMessage(message)
+	message, err := core.ReadJSON(request)
+	if err != nil {
+		http.Error(w, "Not valid JSON", http.StatusBadRequest)
+		return
+	}
+
+	err = core.ValidateMessage(message)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
