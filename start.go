@@ -3,17 +3,17 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"encoding/json"
-	"strings"
+	"http-md5/core"
 )
 
 func connect(w http.ResponseWriter, r *http.Request){
 	//fmt.Println(r)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	//fmt.Fprint(w, "OK")
-	request := r.PostFormValue("request")
-	json.NewDecoder(strings.NewReader(request))
 
+	request := r.PostFormValue("request")
+	message := core.ReadJSON(request)
+	hash := core.GetHash(message)
+	fmt.Fprint(w, hash)
 }
 
 func main()  {
