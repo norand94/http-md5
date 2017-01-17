@@ -41,6 +41,6 @@ func connect(w http.ResponseWriter, r *http.Request){
 
 func main()  {
 	fmt.Println("Server started")
-	http.HandleFunc("/", connect)
+	http.HandleFunc("/md5", connect)
 	http.ListenAndServe(":8888", nil)
 }
