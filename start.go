@@ -35,7 +35,7 @@ func connect(w http.ResponseWriter, r *http.Request){
 
 	hash := core.GetHash(message)
 	w.WriteHeader(200)
-	fmt.Fprint(w, hash)
+	fmt.Fprintln(w, hash)
 
 }
 
